@@ -23,7 +23,7 @@ jobs:
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
-        name: 'seat-dealer-api'
+        name: 'get_events'
         runtime: 'python311'
 
     # Example of using the output
