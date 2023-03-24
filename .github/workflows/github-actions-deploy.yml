@@ -24,7 +24,7 @@ jobs:
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
         name: 'seat-dealer-api'
-        runtime: 'nodejs16'
+        runtime: 'python311'
 
     # Example of using the output
     - id: 'test'
