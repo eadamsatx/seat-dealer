@@ -33,3 +33,6 @@ gcloud sql connect myinstance --user=postgres
 gcloud services enable storage.googleapis.com
 gcloud services enable sql-component.googleapis.com
 ```
+
+## Not handled by deployment
+- getEvents cloud function needs principal `allUsers` to be assigned role `Cloud Functions Invoker`
