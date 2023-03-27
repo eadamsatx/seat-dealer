@@ -1,0 +1,1 @@
+export const OAUTH_CLIENT_SECRET: string = process.env.OAUTH_CLIENT_SECRET || ''

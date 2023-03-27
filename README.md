@@ -21,12 +21,20 @@ Alas - this project is designed to scratch a personal itch in both features and 
 
 ## Front End Development
 Watcher to render typescript
-`yarn start`
+```bash
+source .env
+cd frontend/seat-dealer
+yarn start
+```
 
 Watcher to render CSS
-```npx tailwindcss -i ./src/index.css -o ./src/styles/index.css --watch```
+```bash
+cd frontend/seat-dealer
+npx tailwindcss -i ./src/index.css -o ./src/styles/index.css --watch
+```
 
 Yeah, we will probably end up rendering that to a dist directory at some point.
 
 ## Unresolved questions
 - revisit later: https://www.jetbrains.com/help/webstorm/tailwind-css.html
+- Fix alignment of profile name in app bar
