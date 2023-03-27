@@ -1,6 +1,14 @@
-import React from 'react';
-import {Typography, AppBar, CssBaseline, Toolbar, Container} from "@mui/material";
-import {ChairAlt} from '@mui/icons-material';
+import React, {useState} from 'react';
+import {
+    Typography,
+    AppBar,
+    CssBaseline,
+    Toolbar,
+    Container,
+    BottomNavigation,
+    BottomNavigationAction, Paper
+} from "@mui/material";
+import {ChairAlt, EventSeat, Contacts} from '@mui/icons-material';
 import ContactRsvpDropdown from "./dropdown";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -23,9 +31,20 @@ function ContactInvite() {
 }
 
 function MainContainer() {
-
+    const [value, setValue] = useState('')
     return <>
-
+        <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
+            <BottomNavigation
+                showLabels
+                value={value}
+                onChange={(event, newValue) => {
+                    setValue(newValue);
+                }}
+            >
+                <BottomNavigationAction label="Contacts" icon={<Contacts />} />
+                <BottomNavigationAction label="Events" icon={<EventSeat />} />
+            </BottomNavigation>
+        </Paper>
 
 
     </>
@@ -34,21 +53,21 @@ function App() {
     return (
         <>
             <GoogleOAuthProvider clientId={process.env.REACT_APP_OAUTH_CLIENT_ID as string}>
-            <CssBaseline />
-            <AppBar position="relative">
-                <Toolbar>
-                    <ChairAlt />
-                    <Typography variant="h6"  component="div" sx={{ flexGrow: 1 }}>Seat Dealer</Typography>
-                    <GoogleCreds />
-                </Toolbar>
-            </AppBar>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/invite/*" element={<ContactInvite />} />
-                    <Route path="/" element={<MainContainer />} />
-                </Routes>
-            </BrowserRouter>
-                </GoogleOAuthProvider>
+                <CssBaseline />
+                <AppBar position="relative">
+                    <Toolbar>
+                        <ChairAlt />
+                        <Typography variant="h6"  component="div" sx={{ flexGrow: 1 }}>Seat Dealer</Typography>
+                        <GoogleCreds />
+                    </Toolbar>
+                </AppBar>
+                <BrowserRouter>
+                    <Routes>
+                        <Route path="/invite/*" element={<ContactInvite />} />
+                        <Route path="/" element={<MainContainer />} />
+                    </Routes>
+                </BrowserRouter>
+            </GoogleOAuthProvider>
         </>
     );
 }
