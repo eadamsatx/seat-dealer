@@ -17,3 +17,16 @@ Alas - this project is designed to scratch a personal itch in both features and 
 - Work on deploying the project using different deploy technologies.
 - Gain exposure to the setup and configuration of secret management technologies.
 - Evaluate FastAPI as a Python framework.
+
+
+## Front End Development
+Watcher to render typescript
+`yarn start`
+
+Watcher to render CSS
+```npx tailwindcss -i ./src/index.css -o ./src/styles/index.css --watch```
+
+Yeah, we will probably end up rendering that to a dist directory at some point.
+
+## Unresolved questions
+- revisit later: https://www.jetbrains.com/help/webstorm/tailwind-css.html
