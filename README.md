@@ -16,7 +16,8 @@ Alas - this project is designed to scratch a personal itch in both features and 
 
 - Work on deploying the project using different deploy technologies.
 - Gain exposure to the setup and configuration of secret management technologies.
-- Evaluate FastAPI as a Python framework.
+- Evaluate Cloud Functions and/or FastAPI as a Python framework.
+- Gain exposure to the latest front-end technologies like yarn (pnpm?), typescript, and tailwind
 
 
 ## Front End Development
@@ -35,6 +36,21 @@ npx tailwindcss -i ./src/index.css -o ./src/styles/index.css --watch
 
 Yeah, we will probably end up rendering that to a dist directory at some point.
 
-## Unresolved questions
+## Unresolved Stuff
 - revisit later: https://www.jetbrains.com/help/webstorm/tailwind-css.html
 - Fix alignment of profile name in app bar
+- OpenAPI Spec
+- alembic.ini is not committed because it contains creds
+- Create db connection string on deploy
+- Using a real db to test for now
+- Not yet marshalling
+- as_dict on models should be moved to a base class or otherwise extracted
+- sqlalchemy can definitely join instead of getting by id...
+
+## Endpoints
+contacts (add, delete)
+event (add, update, delete)
+invitation (add, update)
+
+## Weird Findings
+OSX Monterey and later have VERY STRANGE BEHAVIOR on port 5000- the default flask dev server port. Chromium browsers will connect to that port and find an AirTunes server. Copy/pasting the request as CURL into iTerm2 will cause it to connect a python dev server running on that port, NOT the AirPlay server the browser sees. That's why we are configured off of 5000 for flask dev server.

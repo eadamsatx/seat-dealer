@@ -1,0 +1,11 @@
+import os
+DB_CONN_STRING = os.environ.get('DB_CONN_STRING')
+OAUTH2_CLIENT_ID = os.environ.get('OAUTH2_CLIENT_ID')
+OAUTH2_CLIENT_SECRET = os.environ.get('OAUTH2_CLIENT_SECRET')
+OAUTH2_REDIRECT_URI = os.environ.get('OAUTH2_REDIRECT_URI', 'http://localhost:3000')
+API_BASE_URI = os.environ.get('API_BASE_URI')
+FRONTEND_BASE_URI = os.environ.get('FRONTEND_BASE_URI', 'http://localhost:3000')
+TWILIO_ACCOUNT_SID = os.environ.get('TWILIO_ACCOUNT_SID')
+TWILIO_AUTH_TOKEN = os.environ.get('TWILIO_AUTH_TOKEN')
+TWILIO_PHONE_NUMBER = os.environ.get('TWILIO_PHONE_NUMBER')
+TWILIO_TO_NUMBER_OVERRIDE = os.environ.get('TWILIO_TO_NUMBER_OVERRIDE')

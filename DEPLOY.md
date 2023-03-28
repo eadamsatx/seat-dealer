@@ -13,15 +13,24 @@ gcloud functions deploy seat-dealer-api \
 
 ## administering sql stuff
 ### connect dev machine to db using proxy
+Install [cloud_sql_proxy](https://cloud.google.com/sql/docs/mysql/sql-proxy#macos-64-bit) installed:
+
+
 ```bash
-export GOOGLE_PROJECT=$(gcloud config get-value project)
-MYSQL_DB_NAME=$(terraform output -json | jq -r '.instance_name.value')
-MYSQL_CONN_NAME="${GOOGLE_PROJECT}:us-central1:${MYSQL_DB_NAME}"
-./cloud_sql_proxy -instances=${MYSQL_CONN_NAME}=tcp:3306
 cd terraform
+export GOOGLE_PROJECT=$(gcloud config get-value project)
+export MYSQL_DB_NAME=$(terraform output -json | jq -r '.instance_name.value')
+export MYSQL_CONN_NAME="${GOOGLE_PROJECT}:us-central1:${MYSQL_DB_NAME}"
+./cloud-sql-proxy ${MYSQL_CONN_NAME}
 echo MYSQL_PASSWORD=$(terraform output -json | jq -r '.generated_user_password.value')
 mysql -udefault -p --host 127.0.0.1 default
 ```
+
+### Create a new migration
+`alembic revision --autogenerate -m "Added some table"`
+
+### Run Migrations
+`alembic upgrade`
 
 ### connect dev machine to db using gcloud only, no proxy
 ```bash

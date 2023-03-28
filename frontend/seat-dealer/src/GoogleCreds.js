@@ -7,35 +7,35 @@ import { Logout } from '@mui/icons-material'
 import {Button, Typography} from "@mui/material";
 
 function GoogleCreds() {
-    const [ user, setUser ] = useState([]);
     const [ profile, setProfile ] = useState([]);
 
     const login = useGoogleLogin({
-        onSuccess: (credentialResponse) => {
-            setUser(credentialResponse)
-            console.log(credentialResponse)
+        onSuccess: async (credentialResponse) => {
+            const authInfo = await axios.post(`http://localhost:5050/api/v1/login`, {code: credentialResponse.code})
+            setProfile(authInfo.data)
+            localStorage.setItem('seatDealerAuthToken', authInfo.data.authToken)
         },
-        onError: (error) => console.log('Login Failed:', error)
+        flow: 'auth-code'
     });
 
-    useEffect(
-        () => {
-            if (user) {
-                axios
-                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                        headers: {
-                            Authorization: `Bearer ${user.access_token}`,
-                            Accept: 'application/json'
-                        }
-                    })
-                    .then((res) => {
-                        setProfile(res.data);
-                    })
-                    .catch((err) => console.log(err));
-            }
-        },
-        [ user ]
-    );
+    // useEffect(
+    //     () => {
+    //         if (user) {
+    //             axios
+    //                 .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+    //                     headers: {
+    //                         Authorization: `Bearer ${user.access_token}`,
+    //                         Accept: 'application/json'
+    //                     }
+    //                 })
+    //                 .then((res) => {
+    //                     setProfile(res.data);
+    //                 })
+    //                 .catch((err) => console.log(err));
+    //         }
+    //     },
+    //     [ user ]
+    // );
 
     // log out function to log the user out of google and set the profile array to null
     const logOut = () => {

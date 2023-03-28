@@ -6,9 +6,9 @@ import {
     Toolbar,
     Container,
     BottomNavigation,
-    BottomNavigationAction, Paper
+    BottomNavigationAction, Paper, ListItemIcon, List, ListItemText, ListItem, ListItemButton
 } from "@mui/material";
-import {ChairAlt, EventSeat, Contacts} from '@mui/icons-material';
+import {ChairAlt, EventSeat, Contacts, AddCircleOutline} from '@mui/icons-material';
 import ContactRsvpDropdown from "./dropdown";
 import {BrowserRouter, Routes, Route} from 'react-router-dom'
 import { GoogleOAuthProvider } from '@react-oauth/google';
@@ -33,6 +33,22 @@ function ContactInvite() {
 function MainContainer() {
     const [value, setValue] = useState('')
     return <>
+        <List>
+                      <ListItem disablePadding>
+            <ListItemButton>
+
+              <ListItemText primary="Jason" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                <AddCircleOutline />
+              </ListItemIcon>
+              <ListItemText primary="Add Contact" />
+            </ListItemButton>
+          </ListItem>
+                </List>
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
             <BottomNavigation
                 showLabels
