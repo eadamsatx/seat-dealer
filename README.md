@@ -1,6 +1,20 @@
 # seat-dealer
 Automate the sending of invites and management of RSVPs for seat-limited social events like dinner parties.
 
+## Project Status
+Having started with the idea of building ci/cd skills, the deployment baseline is largely in place:
+- `terraform` is configured to store state with gcp as a back end. It sets up cloudsql and a user.
+- `github actions` is configured to lint and test python and to deploy to GCP Cloud Functions.
+
+The `test/test_api_story_happy_path.py` describes much of the existing functionality, which is incomplete. Currently:
+- DB models are established for User, Contact, Event, and Invitation
+- Endpoints are established for invites (which successfully send SMS messages) events, and login
+
+On the UI,
+- Login works with Google OAuth2. It posts the auth code to the `/login` endpoint on the seat-dealer server which exchanges it for an id token and sets up a session
+- A session api key is stored in localStorage
+- Most other UI elements are not yet built out
+
 ## How to host an event
 Login to the web UI, add contacts, schedule the event, and ask the seat-dealer to start dealing. Invitations will be sent out a few at a time until seats are filled with "YES" and "PROBABLY" responses. Those responding "MAYBE" will be notified that they are not guaranteed a seat. The web UI will update showing invitations sent, the method of delivery and responses received.
 
@@ -20,7 +34,25 @@ Alas - this project is designed to scratch a personal itch in both features and 
 - Gain exposure to the latest front-end technologies like yarn (pnpm?), typescript, and tailwind
 
 
-## Front End Development
+## Setting up dev environment
+### Dependent services
+This app relies on:
+- Google for OAuth2 authentication
+- mysql (hosted in GCP)
+- twilio
+
+### Required environment variables
+OAUTH2_CLIENT_ID
+OAUTH2_CLIENT_SECRET
+DB_CONN_STRING
+API_BASE_URI
+FRONTEND_BASE_URI
+TWILIO_ACCOUNT_SID
+TWILIO_AUTH_TOKEN
+TWILIO_PHONE_NUMBER
+TWILIO_TO_NUMBER_OVERRIDE (optional)
+
+### Front End
 Watcher to render typescript
 ```bash
 source .env
@@ -28,7 +60,7 @@ cd frontend/seat-dealer
 yarn start
 ```
 
-Watcher to render CSS
+Watcher to render CSS (not currently needed)
 ```bash
 cd frontend/seat-dealer
 npx tailwindcss -i ./src/index.css -o ./src/styles/index.css --watch
