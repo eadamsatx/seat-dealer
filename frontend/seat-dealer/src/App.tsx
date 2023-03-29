@@ -1,19 +1,29 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-    Typography,
     AppBar,
-    CssBaseline,
-    Toolbar,
-    Container,
     BottomNavigation,
-    BottomNavigationAction, Paper, ListItemIcon, List, ListItemText, ListItem, ListItemButton, TextField, Button
+    BottomNavigationAction,
+    Container,
+    CssBaseline,
+    Paper,
+    Toolbar,
+    Typography
 } from "@mui/material";
-import {ChairAlt, EventSeat, Contacts, AddCircleOutline} from '@mui/icons-material';
+import {ChairAlt, Contacts, EventSeat} from '@mui/icons-material';
 import ContactRsvpDropdown from "./dropdown";
-import {BrowserRouter, Routes, Route} from 'react-router-dom'
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
+import {GoogleOAuthProvider} from '@react-oauth/google';
 import GoogleCreds from "./GoogleCreds";
-import axios from "axios";
+import {AddContact} from "./AddContact";
+import {ContactList} from "./ContactList";
+import {EventList} from "./EventList";
+
+export function getAxiosConfigAuthenticated() {
+    const authToken = localStorage.getItem('authToken')
+    return {
+        headers: {'Authorization': `Bearer ${authToken}`}
+    }
+}
 function ContactInvite() {
     return <main>
         <Container maxWidth="sm">
@@ -29,75 +39,17 @@ function ContactInvite() {
     </main>
 }
 
-async function postContactToApi(name:string, email:string, phoneNumber:string) {
-    await axios.post('http://localhost:5050/api/v1/contacts', {
-        name: name,
-        email: email,
-        phoneNumber: phoneNumber
-    })
-}
-
-function AddContact() {
-    const [name, setName] = useState('')
-    const [email, setEmail] = useState('')
-    const [phoneNumber, setPhoneNumber] = useState('')
+export function BottomNav() {
+    const [nav, setNav] = useState(0)
+    const navigate = useNavigate()
+    useEffect(() => {
+        if(nav === 0) {
+            navigate("/");
+        } else {
+            navigate('/events')
+        }
+    }, [nav])
     return <>
-        <Container>
-            <TextField
-                fullWidth
-                margin="normal"
-                id="name-field"
-                label="Name"
-                value={name}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setName(event.target.value);
-                }}
-            />
-            <TextField
-                fullWidth
-                margin="normal"
-                id="email-field"
-                label="Email"
-                value={email}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setEmail(event.target.value);
-                }}
-            />
-            <TextField
-                fullWidth
-                margin="normal"
-                id="phone-number-field"
-                label="Phone Number"
-                value={phoneNumber}
-                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-                    setPhoneNumber(event.target.value);
-                }}
-            />
-            <Button variant="outlined" startIcon={<AddCircleOutline />} onClick={() => {postContactToApi(name, email, phoneNumber)}}>
-                Add
-            </Button>
-        </Container>
-    </>
-}
-
-function MainContainer() {
-    const [nav, setNav] = useState('')
-    return <>
-        <List>
-            <ListItem disablePadding>
-                <ListItemButton>
-                    <ListItemText primary="Jason" />
-                </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
-                <ListItemButton component='a' href='/add-contact'>
-                    <ListItemIcon>
-                        <AddCircleOutline />
-                    </ListItemIcon>
-                    <ListItemText primary="Add Contact" />
-                </ListItemButton>
-            </ListItem>
-        </List>
         <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0}} elevation={3}>
             <BottomNavigation
                 showLabels
@@ -110,8 +62,6 @@ function MainContainer() {
                 <BottomNavigationAction label="Events" icon={<EventSeat />} />
             </BottomNavigation>
         </Paper>
-
-
     </>
 }
 function App() {
@@ -130,9 +80,12 @@ function App() {
                     <Routes>
                         <Route path="/add-contact" element={<AddContact />} />
                         <Route path="/invite/*" element={<ContactInvite />} />
-                        <Route path="/" element={<MainContainer />} />
+                        <Route path="/" element={<ContactList />} />
+                        <Route path="/events" element={<EventList />} />
                     </Routes>
+                    <BottomNav />
                 </BrowserRouter>
+
             </GoogleOAuthProvider>
         </>
     );

@@ -26,16 +26,23 @@ class User(Base):
     def as_dict(self):
         return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
 
+
 class Contact(Base):
     __tablename__ = "contacts"
 
     id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    owner_email: Mapped[str] = mapped_column(String(200), ForeignKey("users.email"))
     name: Mapped[str] = mapped_column(String(50))
     email: Mapped[Optional[str]] = mapped_column(String(200))
     phone_number: Mapped[Optional[str]] = mapped_column(String(50))
 
     def as_dict(self):
-        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
+        return {
+            'id': self.id,
+            'name': self.name,
+            'email': self.email,
+            'phoneNumber': self.phone_number
+        }
 
 class Event(Base):
     __tablename__ = "events"

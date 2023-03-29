@@ -22,8 +22,9 @@ API_ROUTE_PREFIX = '/api/v1'
 login_blueprint = Blueprint('login', __name__, url_prefix='/api/v1')
 
 
-@login_blueprint.route('/api/v1/login', methods=["POST"])
+@login_blueprint.route('/login', methods=["POST"])
 def login():
+    print(request.json)
     code = request.json['code']
 
     params = {

@@ -27,16 +27,18 @@ API_ROUTE_PREFIX = '/api/v1'
 
 def create_app():
     app = Flask(__name__)
-    CORS(app, origins=['http://localhost:3000/', 'https://seatdealer.app'])
+    CORS(app, origins=['http://localhost:3000', 'https://seatdealer.app'])
 
     # from yourapplication.model import db
     # db.init_app(app)
     from flaskapp.views.login import login_blueprint
     from flaskapp.views.events import events_blueprint
     from flaskapp.views.invites import invites_blueprint
+    from flaskapp.views.contacts import contacts_blueprint
     app.register_blueprint(login_blueprint)
     app.register_blueprint(events_blueprint)
     app.register_blueprint(invites_blueprint)
+    app.register_blueprint(contacts_blueprint)
 
     return app
 

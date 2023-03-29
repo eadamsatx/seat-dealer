@@ -7,13 +7,23 @@ import { Logout } from '@mui/icons-material'
 import {Button, Typography} from "@mui/material";
 
 function GoogleCreds() {
-    const [ profile, setProfile ] = useState([]);
+    const [ profile, setProfile ] = useState({});
+    const storedAuthToken = localStorage.getItem('authToken');
 
+    if(!!storedAuthToken && storedAuthToken !== profile.authToken) {
+        setProfile({
+            authToken: localStorage.getItem('authToken'),
+            email: localStorage.getItem('email'),
+            name: localStorage.getItem('name')
+        })
+    }
     const login = useGoogleLogin({
         onSuccess: async (credentialResponse) => {
             const authInfo = await axios.post(`http://localhost:5050/api/v1/login`, {code: credentialResponse.code})
             setProfile(authInfo.data)
-            localStorage.setItem('seatDealerAuthToken', authInfo.data.authToken)
+            localStorage.setItem('authToken', authInfo.data.authToken)
+            localStorage.setItem('email', authInfo.data.email)
+            localStorage.setItem('name', authInfo.data.name)
         },
         flow: 'auth-code'
     });
