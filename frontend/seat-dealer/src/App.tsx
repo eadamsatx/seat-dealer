@@ -17,6 +17,8 @@ import GoogleCreds from "./GoogleCreds";
 import {AddContact} from "./AddContact";
 import {ContactList} from "./ContactList";
 import {EventList} from "./EventList";
+import {AddEvent} from "./AddEvent";
+import {EventDetail} from "./EventDetail";
 
 export function getAxiosConfigAuthenticated() {
     const authToken = localStorage.getItem('authToken')
@@ -79,13 +81,14 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route path="/add-contact" element={<AddContact />} />
+                        <Route path="/add-event" element={<AddEvent />} />
                         <Route path="/invite/*" element={<ContactInvite />} />
                         <Route path="/" element={<ContactList />} />
                         <Route path="/events" element={<EventList />} />
+                        {/*<Route path="/events/:id" element={<EventDetail />} />*/}
                     </Routes>
                     <BottomNav />
                 </BrowserRouter>
-
             </GoogleOAuthProvider>
         </>
     );

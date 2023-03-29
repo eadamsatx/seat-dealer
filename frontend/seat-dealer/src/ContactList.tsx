@@ -18,7 +18,7 @@ export function ContactList() {
     return <>
         <List>
             {contacts.map((c) => (
-                <ListItem disablePadding>
+                <ListItem disablePadding key={c['id']}>
                     <ListItemButton>
                         <ListItemText primary={c['name']} />
                     </ListItemButton>

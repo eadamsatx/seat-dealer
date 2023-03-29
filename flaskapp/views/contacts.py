@@ -20,7 +20,6 @@ contacts_blueprint = Blueprint('contacts', __name__, url_prefix='/api/v1')
 @contacts_blueprint.route(f'/contacts', methods=['GET', 'POST'])
 def post_contacts():
     auth_token = request.headers.get('Authorization').split()[1]
-    # asserted_owner = db_session.query(User).get(request.json['ownerEmail'])
     user = db_session.query(User).filter_by(auth_token=auth_token).one_or_none()
     if not User:
         return jsonify({'message': 'Invalid api key'}), 401

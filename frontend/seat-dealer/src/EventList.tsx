@@ -3,9 +3,11 @@ import axios from "axios";
 import {List, ListItem, ListItemButton, ListItemIcon, ListItemText} from "@mui/material";
 import {AddCircleOutline} from "@mui/icons-material";
 import {BottomNav, getAxiosConfigAuthenticated} from "./App";
+import {useNavigate} from "react-router-dom";
 
 export function EventList() {
     const [events, setEvents] = useState([])
+    const navigate = useNavigate()
     useEffect(() => {
         axios.get(
             "http://localhost:5050/api/v1/events",
@@ -29,11 +31,11 @@ export function EventList() {
             ))}
 
             <ListItem disablePadding>
-                <ListItemButton component='a' href='/add-contact'>
+                <ListItemButton onClick={() => {navigate('/add-event')}}>
                     <ListItemIcon>
                         <AddCircleOutline/>
                     </ListItemIcon>
-                    <ListItemText primary="Add Contact"/>
+                    <ListItemText primary="Add Event"/>
                 </ListItemButton>
             </ListItem>
         </List>
