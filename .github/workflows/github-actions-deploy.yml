@@ -18,13 +18,14 @@ jobs:
     - id: 'auth'
       uses: 'google-github-actions/auth@v1'
       with:
-        credentials_json: '${{ secrets.GCP_SA_KEY }}'
+        credentials_json: '${{secrets.GCP_SA_KEY }}'
 
     - id: 'deploy'
       uses: 'google-github-actions/deploy-cloud-functions@v1'
       with:
         name: 'get_events'
         runtime: 'python311'
+        env_vars: 'DB_CONN_STRING="${{ secrets.DB_CONN_STRING }}"'
 
     # Example of using the output
     - id: 'test'
