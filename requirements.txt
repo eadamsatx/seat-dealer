@@ -14,6 +14,8 @@ cloudevents==1.9.0
 cryptography==40.0.1
 deprecation==2.1.0
 Flask==2.2.3
+Flask-Cors==3.0.10
+Flask-Executor==1.0.0
 flask-oauth2-validation==0.1.2
 frozenlist==1.3.3
 functions-framework==3.3.0
@@ -24,6 +26,7 @@ idna==3.4
 iniconfig==2.0.0
 itsdangerous==2.1.2
 Jinja2==3.1.2
+jwt==1.3.1
 Mako==1.2.4
 MarkupSafe==2.1.2
 multidict==6.0.4
@@ -34,14 +37,18 @@ psycopg2-binary==2.9.5
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycparser==2.21
+PyJWT==2.6.0
 PyMySQL==1.0.2
 pytest==7.2.2
 python-dateutil==2.8.2
+python-dotenv==1.0.0
+pytz==2023.2
 requests==2.28.2
 rsa==4.9
 scramp==1.4.4
 six==1.16.0
 SQLAlchemy==2.0.7
+twilio==7.17.0
 typing_extensions==4.5.0
 urllib3==1.26.15
 watchdog==3.0.0
