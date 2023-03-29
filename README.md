@@ -13,7 +13,9 @@ The `test/test_api_story_happy_path.py` describes much of the existing functiona
 On the UI,
 - Login works with Google OAuth2. It posts the auth code to the `/login` endpoint on the seat-dealer server which exchanges it for an id token and sets up a session
 - A session api key is stored in localStorage
-- Most other UI elements are not yet built out
+- Users can add and list contacts.
+- Users can add and list events.
+- The next step (show an event page with a list of contacts that can be invited) is not yet implemented. The back end is implemented and tested.
 
 ## How to host an event
 Login to the web UI, add contacts, schedule the event, and ask the seat-dealer to start dealing. Invitations will be sent out a few at a time until seats are filled with "YES" and "PROBABLY" responses. Those responding "MAYBE" will be notified that they are not guaranteed a seat. The web UI will update showing invitations sent, the method of delivery and responses received.
